@@ -16,7 +16,7 @@ jobs: # fluxos disparados pela pipe
         uses: docker/build-push-action@c56af957549030174b10d6867f20e78cfd7debc5
         with:
           context: ./src
-          file: ./Dockerfile
+          file: ./src/Dockerfile
           push: true
           tags: |
             hugovallada/live-kube-news:v1
