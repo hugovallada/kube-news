@@ -9,10 +9,16 @@ jobs: # fluxos disparados pela pipe
   CI:
     runs-on: ubuntu-latest # onde ele executa
     steps: # passos de execução desse job
-      - name: Checkout
+      - name: Checkout #action
         uses: actions/checkout@v3.1.0
 
-      - name: Build And Push Docker Image
+      - name: Docker Login #action
+        uses: docker/login-action@v2.1.0
+        with:
+          username: ${{secrets.DOCKERHUB_USER}}
+          password: ${{secrets.DOCKERHUB_PWD}}
+
+      - name: Build And Push Docker Image #action
         uses: docker/build-push-action@c56af957549030174b10d6867f20e78cfd7debc5
         with:
           context: ./src
