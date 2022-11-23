@@ -27,3 +27,24 @@ jobs: # fluxos disparados pela pipe
           tags: |
             hugovallada/live-kube-news:v${{github.run_number}}.0
             hugovallada/live-kube-news:latest
+
+  CD:
+    runs-on: ubuntu-latest
+    needs: [CI]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.1.0
+
+      - name: Kubernetes Set Context # É da Azure, mas serve para todos
+        uses: Azure/k8s-set-context@v3.0
+        with:
+          method: kubeconfig
+          kubeconfig: ${{secrets.K8S_CONFIG}}
+
+      - name: Deploy Kubernetes
+        uses: Azure/k8s-deploy@v4
+        with:
+          images: hugovallada/live-kube-news:v${{github.run_number}}.0
+          manifests: |
+            k8s/deployment.yaml
+
