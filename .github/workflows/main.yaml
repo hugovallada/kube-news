@@ -25,5 +25,5 @@ jobs: # fluxos disparados pela pipe
           file: ./src/Dockerfile
           push: true
           tags: |
-            hugovallada/live-kube-news:v1
+            hugovallada/live-kube-news:v${{github.run.number}}.0
             hugovallada/live-kube-news:latest
